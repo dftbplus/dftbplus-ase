@@ -14,11 +14,16 @@ jobs:
       with:
         python-version: '3.x'
 
-    - name: Install requirements (python)
-      run: pip3 install pytest
+    - name: Install requirements
+      run: |
+        pip install --upgrade pip
+        pip3 install pytest
 
-    - name: Setup up PYTHONPATH
-      run: echo "PYTHONPATH=${PWD}/src" >> $GITHUB_ENV
+    - name: Install project
+      run: pip3 install .
+
+    - name: Check for broken requirements
+      run: pip3 check
 
     - name: Run regression tests
       run: python3 -m pytest
